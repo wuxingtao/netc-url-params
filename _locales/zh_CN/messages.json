@@ -1,0 +1,5 @@
+{
+  "appName": { "message": "NETC url 参数 Chrome插件" },
+  "appDescription": { "message": "netc项目快速添加url token" },
+  "helloWorld": { "message": "Hello World" }
+}
