@@ -16,9 +16,7 @@
     "contextMenus",
     "storage",
     "tabs",
-    "tts",
-    "notifications",
-    "storage"
+    "notifications"
   ],
   "action": {
     "default_popup": "html/popup.html"
