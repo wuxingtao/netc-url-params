@@ -57,7 +57,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // 重组query
     const queryObject = Object.assign(getQueryObject(),{token:request.accessToken})
     window.location.href = urlContact(originPath, queryObject)
-    window.location.reload()
+    // 处理hash路由刷新
+    if(window.location.hash){
+      window.location.reload()
+    }
   }
 
 })
