@@ -1,0 +1,15 @@
+.checkbox-group{
+    display: flex;
+}
+.form-item{
+    margin-bottom: 15px;
+}
+
+.checkbox-item+.checkbox-item{
+    margin-left: 10px;
+}
+
+.phone-input span{
+    margin-bottom: 8px;
+    display: block;
+}
