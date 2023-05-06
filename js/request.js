@@ -16,5 +16,10 @@ export const getData = async function(url, params = {}) {
   return res.json()
 }
 
+export const tokenApiList = {
+  uat: 'http://ic-appapi-uat.kyslb.com:12306/gatewayapp/ecas/client/getAccessToken',
+  stg: 'http://ic-appapi-stg.kyslb.com/gatewayapp/ecas/client/getAccessToken'
+}
+
 
 
