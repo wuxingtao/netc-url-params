@@ -53,7 +53,7 @@ chrome.contextMenus.onClicked.addListener((menuInfo, tabInfo) => {
     console.log('netc-plugins_option_phone', result['netc-plugins_option_phone'])
     getToken(result['netc-plugins_option_phone'])
   })
-  chrome.tabs.query({
+/*  chrome.tabs.query({
     active: true, currentWindow: true
   }, (tabs) => {
     // 页签信息，具体内容请自行查看调试窗口的调试日志
@@ -85,5 +85,5 @@ chrome.contextMenus.onClicked.addListener((menuInfo, tabInfo) => {
           message: '当前页面已' + (menuInfo.menuItemId == 'editHtmlOn' ? '开启' : '关闭') + '编辑功能' // 通知内容，一定要有内容，哪怕是空字符串，否则不会发送通知
         })
       })
-  })
+  })*/
 })
