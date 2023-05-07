@@ -6,8 +6,6 @@
 const submitBtn = document.querySelector('#submit')
 const phoneInput = document.querySelector('#phone')
 
-console.log('popup')
-
 // popup表单默认值
 const formDefault = {
   phone: '13569448500',
@@ -24,8 +22,8 @@ window.onload = function() {
     document.querySelector(`input#${currentEnv}`).checked = true
   })
 }
-
-submitBtnClick = () => {
+/* 保存按钮事件 */
+const submitBtnClick = () => {
   const envTarget = document.querySelector('input[name="env"]:checked')
   chrome.storage.local.set({ 'netc-plugins_option_env': envTarget.value })
   chrome.storage.local.set({
@@ -36,6 +34,25 @@ submitBtnClick = () => {
 
   console.log('phone----', phoneInput.value)
   console.log('env----', envTarget.value)
-
+  getToken(phoneInput.value, envTarget.value)
 }
 submitBtn.addEventListener('click', submitBtnClick)
+
+function getToken (phone, env) {
+  // const bg = chrome.extension.getBackgroundPage()
+  // bg.getToken(phone, env)
+
+  // 获取token
+  sendMessage({ key: 'getToken', data: { phone, env } })
+}
+
+/**
+ * 通信消息发送
+ * @param message
+ */
+function sendMessage (message) {
+  //for sending a message
+  chrome.runtime.sendMessage(message, function(response) {
+    console.log('response', response)
+  })
+}

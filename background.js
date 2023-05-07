@@ -10,7 +10,7 @@ import { getData, tokenApiList } from './js/request.js'
  * @param phone 手机号
  * @param env <stg,uat>
  */
-const getToken = function(phone, env = 'uat') {
+function getToken(phone, env = 'uat') {
   const url = tokenApiList[env]
   getData(url, {
     'clientTag': 'KY_DELIVERY_WECHAT_APPLET',
@@ -59,6 +59,7 @@ chrome.contextMenus.onClicked.addListener((menuInfo, tabInfo) => {
     })
 
   })
+
   /*  chrome.tabs.query({
       active: true, currentWindow: true
     }, (tabs) => {
@@ -93,3 +94,18 @@ chrome.contextMenus.onClicked.addListener((menuInfo, tabInfo) => {
         })
     })*/
 })
+
+// 通用消息监听
+chrome.runtime.onMessage.addListener(messageReceived);
+
+function messageReceived(msg) {
+  console.log(msg)
+  const {key,data} = msg
+  switch (key) {
+    case 'getToken':
+      getToken(data.phone,data.env)
+      break;
+    default:
+      break;
+  }
+}

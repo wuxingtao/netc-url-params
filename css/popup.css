@@ -13,3 +13,11 @@
     margin-bottom: 8px;
     display: block;
 }
+
+.form-submit button{
+    background: #7575fb;
+    color: #ffffff;
+    border: none;
+    padding: 4px;
+    width: 100%;
+}
