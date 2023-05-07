@@ -11,6 +11,18 @@ const formDefault = {
   phone: '13569448500',
   env: 'uat'
 }
+
+/* 增加手机号监听 */
+phoneInput.addEventListener('input', handlePhoneInput)
+
+function handlePhoneInput (e) {
+  console.log(e)
+  let targetValue = e.target && e.target.value
+  if (targetValue && targetValue.length > 11) {
+    e.target.value = targetValue.slice(0, 11)
+  }
+}
+
 /* 初始化popup表单数据*/
 window.onload = function() {
   chrome.storage.local.get('netc-plugins_option_phone', function(result) {
@@ -35,6 +47,7 @@ const submitBtnClick = () => {
   console.log('phone----', phoneInput.value)
   console.log('env----', envTarget.value)
   getToken(phoneInput.value, envTarget.value)
+  window.close()
 }
 submitBtn.addEventListener('click', submitBtnClick)
 
