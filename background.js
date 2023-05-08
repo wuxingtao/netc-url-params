@@ -37,7 +37,7 @@ function getToken(phone, env = 'uat') {
 
 // 右键一级菜单
 chrome.contextMenus.create({
-  title: '页面添加token',
+  title: 'netc页面添加token',
   id: 'editHtml',
   contexts: ['all'],
   type: 'normal' // "normal", "checkbox", "radio", "separator"
