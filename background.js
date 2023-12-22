@@ -3,17 +3,17 @@
  * @Author: wu xingtao
  * @Date: 2023/5/6
  */
-import { getData, tokenApiList } from './js/request.js'
+import { clientMap, getData, tokenApiList } from './js/request.js'
 
 /**
  * 根据接口获取token
  * @param phone 手机号
  * @param env <stg,uat>
  */
-function getToken(phone, env = 'uat') {
+function getToken(phone, env = 'uat', client = 'H5') {
   const url = tokenApiList[env]
   getData(url, {
-    'clientTag': 'KY_DELIVERY_WECHAT_APPLET',
+    'clientTag': clientMap[client] || 'KY_DELIVERY_WECHAT_APPLET',
     'phone': phone
   }).then(res => {
     console.log(res)
@@ -26,7 +26,7 @@ function getToken(phone, env = 'uat') {
         let message = {
           accessToken: res.data.accessToken
         }
-        chrome.tabs.sendMessage(tabs[0].id, message, res => {
+        chrome.tabs.sendMessage(tabs[0] && tabs[0].id, message, res => {
           console.log('background=>content')
           console.log(res)
         })
@@ -55,7 +55,7 @@ chrome.contextMenus.onClicked.addListener((menuInfo, tabInfo) => {
     chrome.storage.local.get('netc-plugins_option_env', function(resultEnv) {
       console.log('netc-plugins_option_phone', result['netc-plugins_option_phone'])
       console.log('netc-plugins_option_env', resultEnv['netc-plugins_option_env'])
-      getToken(result['netc-plugins_option_phone'], resultEnv['netc-plugins_option_env'])
+      getToken(result['netc-plugins_option_phone'], resultEnv['netc-plugins_option_env'], resultEnv['netc-plugins_option_client'])
     })
 
   })
@@ -103,7 +103,7 @@ function messageReceived(msg) {
   const {key,data} = msg
   switch (key) {
     case 'getToken':
-      getToken(data.phone,data.env)
+      getToken(data.phone,data.env, data.client)
       break;
     default:
       break;

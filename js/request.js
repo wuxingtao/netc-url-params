@@ -21,5 +21,9 @@ export const tokenApiList = {
   stg: 'http://ic-appapi-stg.kyslb.com/gatewayapp/ecas/client/getAccessToken'
 }
 
+export const clientMap = {
+  H5: 'KY_DELIVERY_WECHAT_APPLET',
+  PC: 'KY_PC'
+}
 
 

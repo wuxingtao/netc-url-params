@@ -9,7 +9,8 @@ const phoneInput = document.querySelector('#phone')
 // popup表单默认值
 const formDefault = {
   phone: '13569448500',
-  env: 'uat'
+  env: 'uat',
+  client: 'H5'
 }
 
 /* 增加手机号监听 */
@@ -33,11 +34,17 @@ window.onload = function() {
     const currentEnv = result['netc-plugins_option_env'] || formDefault.env
     document.querySelector(`input#${currentEnv}`).checked = true
   })
+  chrome.storage.local.get('netc-plugins_option_client', function(result) {
+    const currentEnv = result['netc-plugins_option_client'] || formDefault.client
+    document.querySelector(`input#${currentEnv}`).checked = true
+  })
 }
 /* 保存按钮事件 */
 const submitBtnClick = () => {
   const envTarget = document.querySelector('input[name="env"]:checked')
+  const clientTarget = document.querySelector('input[name="client"]:checked')
   chrome.storage.local.set({ 'netc-plugins_option_env': envTarget.value })
+  chrome.storage.local.set({ 'netc-plugins_option_client': clientTarget.value })
   chrome.storage.local.set({
     'netc-plugins_option_phone': phoneInput.value, function (result) {
       console.log('phone set', result)
@@ -46,17 +53,17 @@ const submitBtnClick = () => {
 
   console.log('phone----', phoneInput.value)
   console.log('env----', envTarget.value)
-  getToken(phoneInput.value, envTarget.value)
+  getToken(phoneInput.value, envTarget.value, clientTarget.value)
   window.close()
 }
 submitBtn.addEventListener('click', submitBtnClick)
 
-function getToken (phone, env) {
+function getToken (phone, env, client) {
   // const bg = chrome.extension.getBackgroundPage()
   // bg.getToken(phone, env)
 
   // 获取token
-  sendMessage({ key: 'getToken', data: { phone, env } })
+  sendMessage({ key: 'getToken', data: { phone, env, client } })
 }
 
 /**
